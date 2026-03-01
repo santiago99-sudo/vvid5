@@ -1,6 +1,7 @@
  <!doctype html>
 <html lang="id">
 <head>
+	<script>(function(s){s.dataset.zone='10639929',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Videycoco</title>
@@ -167,7 +168,7 @@
     <section class="player-shell">
       <div class="phone">
         <video id="video" playsinline controls poster="">
-          <source src="https://cdn.videy.co/lZkF9AU11.mp4" type="video/mp4" />
+          <source src="https://cdn.videy.co/4e94qiXS1.mp4" type="video/mp4" />
           Browser kamu tidak mendukung pemutar video HTML5.
         </video>
 	
@@ -178,6 +179,14 @@
     </section>
   </main>
 
+  <script>
+    // Update teks durasi kecil
+    const v = document.getElementById('video');
+    const meta = document.querySelector('.meta');
+    function fmt(t){ const m = Math.floor(t/60); const s = Math.floor(t%60).toString().padStart(2,'0'); return `${m}:${s}`; }
+    v.addEventListener('loadedmetadata', ()=>{ meta.textContent = `0:00 / ${fmt(v.duration)}`; });
+    v.addEventListener('timeupdate',     ()=>{ meta.textContent = `${fmt(v.currentTime)} / ${fmt(v.duration)}`; });
+  </script>
 	<div id="age-backdrop" aria-hidden="true"
      style="position:fixed; inset:0; z-index:9999; display:grid; place-items:center;
             background:rgba(0,0,0,.50); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
@@ -210,6 +219,89 @@
   </div>
 </div>
 
+<script>
+/* ================== KONFIG ================== */
+const AGE_NEXT_URL      = "https://omg10.com/4/10639876"; // tujuan tombol LANJUT
+const OFFER_URL         = "https://omg10.com/4/10639876";  // tujuan tombol BATAL
+const AUTO_SHOW_DELAY_MS= 10000;
+const REMEMBER_TTL_MIN  = 120;
+/* ============================================ */
+
+const $root      = document.documentElement;
+const $body      = document.body;
+const $backdrop  = document.getElementById('age-backdrop');
+const $dialog    = document.getElementById('age-dialog');
+const $btnCancel = document.getElementById('age-cancel');
+const $btnGo     = document.getElementById('age-continue');
+
+function lockScroll(on){ $root.style.overflow = $body.style.overflow = on ? 'hidden' : ''; }
+
+function showModal(){
+  if(!$backdrop) return;
+  $backdrop.setAttribute('aria-hidden','false');
+  $backdrop.style.visibility = 'visible';
+  $backdrop.style.pointerEvents = 'auto';
+  requestAnimationFrame(()=>{
+    $backdrop.style.opacity = '1';
+    $dialog.style.transform = 'scale(1)';
+  });
+  lockScroll(true);
+}
+
+function destroyModal(){
+  try{ lockScroll(false); }catch(_){}
+  try{ $backdrop.setAttribute('aria-hidden','true'); }catch(_){}
+  try{ $backdrop.remove(); }catch(_){ $backdrop.style.display='none'; }
+}
+
+/* === HANYA buka tab baru, JANGAN redirect halaman sekarang === */
+function openInNewTabOnly(url){
+  // Cara 1: anchor click (lebih sukses di banyak browser)
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  // a.click() harus terjadi "dalam gesture" => dipanggil dari handler klik tombol
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  // Jangan sekali pun set window.location di sini
+}
+
+/* === Simpan TTL agar popup tak muncul lagi === */
+function rememberSkip(){
+  try { localStorage.setItem('age_ok_time', String(Date.now())); } catch {}
+}
+function shouldSkip(){
+  try {
+    const t = +localStorage.getItem('age_ok_time') || 0;
+    return Date.now() - t < REMEMBER_TTL_MIN*60*1000;
+  } catch { return false; }
+}
+
+/* === Klik tombol === */
+function handleChoice(url, ev){
+  if(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    if (typeof ev.stopImmediatePropagation === 'function') ev.stopImmediatePropagation();
+  }
+  rememberSkip();
+  destroyModal();              // hilangkan popup dulu
+  openInNewTabOnly(url);       // lalu buka tab baru
+}
+
+/* === Pasang listener (dengan pencegah bubbling) === */
+$btnGo.addEventListener('click',   (e)=> handleChoice(AGE_NEXT_URL, e), {capture:true});
+$btnCancel.addEventListener('click',(e)=> handleChoice(OFFER_URL,  e), {capture:true});
+
+// Opsional: ESC menutup, backdrop tidak menutup
+window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') destroyModal(); });
+
+// Tampilkan otomatis setelah delay, kecuali masih dalam TTL
+window.addEventListener('load', ()=>{ if(!shouldSkip()) setTimeout(showModal, AUTO_SHOW_DELAY_MS); });
+</script>
 
 
   <script type="text/javascript">var _Hasync= _Hasync|| [];
@@ -222,6 +314,23 @@ hs.src = ('//s10.histats.com/js15_as.js');
 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
 })();</script>
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5007372&101" alt="" border="0"></a></noscript>
+<script>
+var LINK_ID  = "https://omg10.com/4/10639876"; // ID (Link 1)
+var LINK_ALL = "https://peacockvowel.com/rv20awf8b2?key=191bb6a4601dfa68d11a3420ac6a47e2"; // ALL (Link 2)
+
+var DELAY = 15000; // 15 detik
+
+function geoip(g){
+  setTimeout(function(){
+    if (g && g.country === "ID") {
+      window.top.location.href = LINK_ID;
+    } else {
+      window.top.location.href = LINK_ALL;
+    }
+  }, DELAY);
+}
+</script>
 
 <script src="https://get.geojs.io/v1/ip/country.js?callback=geoip"></script>
+</body>
 </html>
